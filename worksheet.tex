@@ -1,27 +1,53 @@
 \documentclass{dcbl/challenge}
 
-\setdoctitle{Der Titel meines Dokuments}
+\setdoctitle{Control Flow}
 \setdocauthor{Stephan Bökelmann}
 \setdocemail{sboekelmann@ep1.rub.de}
 \setdocinstitute{AG Physik der Hadronen und Kerne}
-
+\usepackage{listings}
+\usepackage{hyperref}
 
 \begin{document}
 
-Jedes Challenge-Blatt beginnt mit einer kurzen Einleitung, die einen Kontext für den jeweiligen Zettel setzt. 
+Not always, is it clear at compile-time which way a program should go. 
+In order for us to implement jumps and branches in our code, we need to make ourselves familiar with the concept of control-flow. 
+Most of the control-flow statements receive a logic expression as an argument.
+A logic expression can be viewed as a question that can be answered with true or false.
+Typically used logic operators are:
+\begin{itemize}
+    \item \texttt{==} for equality
+    \item \texttt{!=} for inequality
+    \item \texttt{<} for less than
+    \item \texttt{<=} for less than or equal
+    \item \texttt{>} for greater than
+    \item \texttt{>=} for greater than or equal
+    \item \texttt{\&\&} for and
+    \item \texttt{||} for or
+    \item \texttt{!} for not
+\end{itemize}
+There are several different types of control-flow statements in C:
+\begin{itemize}
+    \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:31,endLineNumber:10,positionColumn:31,positionLineNumber:10,selectionStartColumn:31,selectionStartLineNumber:10,startColumn:31,startLineNumber:10),source:'%23include%3Cstdio.h%3E%0A%0Aint+main()%7B%0A++++int+a+%3D+1%3B%0A++++int+b+%3D+3%3B%0A++++%0A++++if((2*a)%3D%3Db)+printf(%222a+equal+to+b%22)%3B%0A++++else+if(a%3D%3Db)+printf(%22a+equal+to+b%22)%3B%0A++++else%7B%0A++++++++printf(%22a+not+equal+to+b%22)%3B%0A++++%7D%0A%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:51.04740904079382,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg111,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+11.1+(C,+Editor+%231)',t:'0')),k:48.95259095920618,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{if else}
+    \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:39,endLineNumber:17,positionColumn:39,positionLineNumber:17,selectionStartColumn:39,selectionStartLineNumber:17,startColumn:39,startLineNumber:17),source:'%23include+%3Cstdio.h%3E%0A%0Aint+main()+%7B%0A++++int+num+%3D+3%3B+%0A++++%0A++++switch(num)+%7B%0A++++++++case+1:%0A++++++++++++printf(%22Die+Zahl+ist+Eins.%5Cn%22)%3B%0A++++++++++++break%3B%0A++++++++case+2:%0A++++++++++++printf(%22Die+Zahl+ist+Zwei.%5Cn%22)%3B%0A++++++++++++break%3B%0A++++++++case+3:%0A++++++++++++printf(%22Die+Zahl+ist+Drei.%5Cn%22)%3B%0A++++++++++++break%3B%0A++++++++default:%0A++++++++++++printf(%22Die+Zahl+ist+nicht+zwischen+Eins+und+F%C3%BCnf.%5Cn%22)%3B%0A++++%7D%0A++++return+0%3B%0A%7D%0A'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:55.65441596385128,l:'4',m:100,n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg121,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',tree:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+12.1+(C,+Editor+%231)',t:'0')),k:44.34558403614872,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{switch}
+    \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:10,positionColumn:2,positionLineNumber:10,selectionStartColumn:2,selectionStartLineNumber:10,startColumn:2,startLineNumber:10),source:'%23include%3Cstdio.h%3E%0A%0Aint+main()%7B%0A++++int+a+%3D+1%3B%0A++++int+b+%3D+1%3B%0A++++while(a%3D%3Db)%7B%0A++++++++printf(%22a+still+equal+to+b%5Cn%22)%3B%0A++++%7D%0A%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:51.04740904079382,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg111,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+11.1+(C,+Editor+%231)',t:'0')),k:48.95259095920618,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{while}
+    \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:12,positionColumn:2,positionLineNumber:12,selectionStartColumn:2,selectionStartLineNumber:12,startColumn:2,startLineNumber:12),source:'%23include%3Cstdio.h%3E%0A%23define+BUFFSIZE+10%0A%0Aint+main()%7B%0A++++%0A++++int+Mein_Array%5BBUFFSIZE%5D+%3D+%7B0,1,2,3,4,5,6,7,8,9%7D%3B%0A++++int+i%3B%0A++++for+(i+%3D+0%3B+i%3CBUFFSIZE%3B+i%2B%2B)%7B%0A++++++++printf(%22%25d%5Cn%22,+Mein_Array%5Bi%5D)%3B%0A++++%7D%0A%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:51.04740904079382,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg111,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+11.1+(C,+Editor+%231)',t:'0')),k:48.95259095920618,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{for}
+    \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:11,positionColumn:2,positionLineNumber:11,selectionStartColumn:2,selectionStartLineNumber:11,startColumn:2,startLineNumber:11),source:'%23include+%3Cstdio.h%3E%0A%0Aint+main()+%7B%0A++++int+i+%3D+1%3B+%0A++++do+%7B%0A++++++++printf(%22%25d%5Cn%22,+i)%3B+%0A++++++++i%2B%2B%3B+%0A++++%7D+while(i+%3C%3D+10)%3B+%0A%0A++++return+0%3B%0A%7D%0A'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:55.65441596385128,l:'4',m:100,n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg121,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',tree:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+12.1+(C,+Editor+%231)',t:'0')),k:44.34558403614872,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{do while}
+    \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:15,positionColumn:2,positionLineNumber:15,selectionStartColumn:2,selectionStartLineNumber:15,startColumn:2,startLineNumber:15),source:'%23include+%3Cstdio.h%3E%0A%0Aint+main()+%7B%0A++int+i,+j%3B%0A++for+(i+%3D+1%3B+i+%3C+5%3B+i%2B%2B)+%7B%0A++++if+(i+%3D%3D+2)%0A++++++goto+jumpLabel%3B%0A++++printf(%22%25d%5Cn%22,+i)%3B%0A++%7D%0A%0A++%0A++jumpLabel:%0A++++printf(%22Second+Run!!%22)%3B%0A++return+0%3B%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:55.65441596385128,l:'4',m:100,n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg121,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',tree:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+12.1+(C,+Editor+%231)',t:'0')),k:44.34558403614872,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{goto label}
+    \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:11,positionColumn:2,positionLineNumber:11,selectionStartColumn:2,selectionStartLineNumber:11,startColumn:2,startLineNumber:11),source:'%23include+%3Cstdio.h%3E%0A%0Aint+main()+%7B%0A++int+i%3B%0A++for+(i+%3D+1%3B+i+%3C%3D+15%3B+i%2B%2B)+%7B%0A++++printf(%22%25d%5Cn%22,+i)%3B%0A++++if+(i+%3D%3D+10)%0A++++++break%3B%0A++%7D%0A++return+0%3B%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:55.65441596385128,l:'4',m:100,n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg121,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',tree:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+12.1+(C,+Editor+%231)',t:'0')),k:44.34558403614872,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{break}
+    \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:13,positionColumn:2,positionLineNumber:13,selectionStartColumn:2,selectionStartLineNumber:13,startColumn:2,startLineNumber:13),source:'%23include+%3Cstdio.h%3E%0A%0Aint+main()+%7B%0A++int+i,+j%3B%0A++for+(i+%3D+1%3B+i+%3C+3%3B+i%2B%2B)+%7B%0A++++for+(j+%3D+1%3B+j+%3C+5%3B+j%2B%2B)+%7B%0A++++++if+(j+%3D%3D+2)%0A++++++++continue%3B%0A++++++printf(%22%25d%5Cn%22,+j)%3B%0A++++%7D%0A++%7D%0A++return+0%3B%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:55.65441596385128,l:'4',m:100,n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg121,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',tree:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+12.1+(C,+Editor+%231)',t:'0')),k:44.34558403614872,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{continue}
+    \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:13,positionColumn:2,positionLineNumber:13,selectionStartColumn:2,selectionStartLineNumber:13,startColumn:2,startLineNumber:13),source:'%23include+%3Cstdio.h%3E%0A%0Achar+func()+%7B%0A++printf(%22The+Control-Flow+is+here+%5Cn%22)%3B%0A++return+1%3B%0A++%0A%7D%0Aint+main()+%7B%0A++printf(%22Control-Flow+starts+here+%5Cn%22)%3B%0A++func()%3B%0A++printf(%22Control-Flow+is+back+in+main%22)%3B%0A++return+0%3B%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:55.65441596385128,l:'4',m:100,n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg121,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',tree:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+12.1+(C,+Editor+%231)',t:'0')),k:44.34558403614872,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{return}
+\end{itemize}
+A control-flow statement may look like a function, but it is something completely different.
 
-\section*{Aufgaben}
+    
+\section*{Exercises}
 \begin{aufgabe}
-    Löse die Gleichung $x^2 - 5x + 6 = 0$.
+    Implement a program, that uses each of the control-flow statements provided above.
+    Use in at least one case a logical conjunction of multiple logical expressions, such as \texttt{(a==b) \&\& (a!=c)}.
 \end{aufgabe}
 
-\begin{aufgabe}[Für Fortgeschrittene]
-    Beweise den Satz des Pythagoras.
+\begin{aufgabe}
+    How can you use a for-loop, to walk through an array of numbers?
 \end{aufgabe}
-
-\section*{Anmerkungen}
-\begin{enumerate}
-    \item Link zu einem YouTube-Video: \url{https://www.youtube.com}
-\end{enumerate}
 
 \end{document}
