@@ -5,14 +5,13 @@
 \setdocemail{sboekelmann@ep1.rub.de}
 \setdocinstitute{AG Physik der Hadronen und Kerne}
 \usepackage{listings}
+\lstset{language=C, basicstyle=\ttfamily}
 \usepackage{hyperref}
 
 \begin{document}
+The path a program takes isn't always determined at the time of compilation. To navigate through different execution paths based on varying conditions, it's essential to grasp control-flow mechanisms. Maybe a certain function can only be executed if the program has a valid key for encrypting a message, or a computation can only be performed if there is a certain amount of disk space left.
 
-Not always, is it clear at compile-time which way a program should go. 
-In order for us to implement jumps and branches in our code, we need to make ourselves familiar with the concept of control-flow. 
-Most of the control-flow statements receive a logic expression as an argument.
-A logic expression can be viewed as a question that can be answered with true or false.
+These mechanisms typically rely on logical expressions as inputs, which act like questions that yield either true or false, guiding the program's execution towards the appropriate branches or jumps in the code.
 Typically used logic operators are:
 \begin{itemize}
     \item \texttt{==} for equality
@@ -24,7 +23,8 @@ Typically used logic operators are:
     \item \texttt{\&\&} for and
     \item \texttt{||} for or
     \item \texttt{!} for not
-\end{itemize}
+\end{itemize} 
+They can be chained together, but regardless of the number of operators, the result has to be either true or false.
 There are several different types of control-flow statements in C:
 \begin{itemize}
     \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:31,endLineNumber:10,positionColumn:31,positionLineNumber:10,selectionStartColumn:31,selectionStartLineNumber:10,startColumn:31,startLineNumber:10),source:'%23include%3Cstdio.h%3E%0A%0Aint+main()%7B%0A++++int+a+%3D+1%3B%0A++++int+b+%3D+3%3B%0A++++%0A++++if((2*a)%3D%3Db)+printf(%222a+equal+to+b%22)%3B%0A++++else+if(a%3D%3Db)+printf(%22a+equal+to+b%22)%3B%0A++++else%7B%0A++++++++printf(%22a+not+equal+to+b%22)%3B%0A++++%7D%0A%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:51.04740904079382,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg111,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+11.1+(C,+Editor+%231)',t:'0')),k:48.95259095920618,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{if else}
@@ -37,17 +37,17 @@ There are several different types of control-flow statements in C:
     \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:13,positionColumn:2,positionLineNumber:13,selectionStartColumn:2,selectionStartLineNumber:13,startColumn:2,startLineNumber:13),source:'%23include+%3Cstdio.h%3E%0A%0Aint+main()+%7B%0A++int+i,+j%3B%0A++for+(i+%3D+1%3B+i+%3C+3%3B+i%2B%2B)+%7B%0A++++for+(j+%3D+1%3B+j+%3C+5%3B+j%2B%2B)+%7B%0A++++++if+(j+%3D%3D+2)%0A++++++++continue%3B%0A++++++printf(%22%25d%5Cn%22,+j)%3B%0A++++%7D%0A++%7D%0A++return+0%3B%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:55.65441596385128,l:'4',m:100,n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg121,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',tree:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+12.1+(C,+Editor+%231)',t:'0')),k:44.34558403614872,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{continue}
     \item \href{https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:13,positionColumn:2,positionLineNumber:13,selectionStartColumn:2,selectionStartLineNumber:13,startColumn:2,startLineNumber:13),source:'%23include+%3Cstdio.h%3E%0A%0Achar+func()+%7B%0A++printf(%22The+Control-Flow+is+here+%5Cn%22)%3B%0A++return+1%3B%0A++%0A%7D%0Aint+main()+%7B%0A++printf(%22Control-Flow+starts+here+%5Cn%22)%3B%0A++func()%3B%0A++printf(%22Control-Flow+is+back+in+main%22)%3B%0A++return+0%3B%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:55.65441596385128,l:'4',m:100,n:'0',o:'',s:0,t:'0'),(g:!((h:executor,i:(argsPanelShown:'1',compilationPanelShown:'0',compiler:cg121,compilerName:'',compilerOutShown:'0',execArgs:'',execStdin:'',fontScale:14,fontUsePx:'0',j:1,lang:___c,libs:!(),options:'',overrides:!(),runtimeTools:!(),source:1,stdinPanelShown:'1',tree:'1',wrap:'1'),l:'5',n:'0',o:'Executor+x86-64+gcc+12.1+(C,+Editor+%231)',t:'0')),k:44.34558403614872,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4}{return}
 \end{itemize}
-A control-flow statement may look like a function, but it is something completely different.
-
+A control-flow statement may look like a function, but it is something completely different. Control-flow statements direct the execution path of a program, deciding which blocks of code to execute based on certain conditions, rather than performing specific tasks or calculations like functions.
     
 \section*{Exercises}
 \begin{aufgabe}
-    Implement a program, that uses each of the control-flow statements provided above.
+    Implement a program, that uses each of the control-flow statements provided above at least once.
     Use in at least one case a logical conjunction of multiple logical expressions, such as \texttt{(a==b) \&\& (a!=c)}.
 \end{aufgabe}
 
 \begin{aufgabe}
-    How can you use a for-loop, to walk through an array of numbers?
+    Using everything you learned before, how can you use a for-loop to walk through an array of numbers?
+    Write a program that does exactly that.
 \end{aufgabe}
 
 \end{document}
